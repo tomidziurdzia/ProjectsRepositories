@@ -4,13 +4,14 @@ import conectarDB from "./config/db.js";
 import usuarioRoutes from "./routes/usuarioRoutes.js";
 
 const app = express();
+app.use(express.json()); // Para que procese info json
 
 dotenv.config();
 
 conectarDB();
 
 // Routing
-app.get("/api/usuarios", usuarioRoutes);
+app.use("/api/usuarios", usuarioRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
