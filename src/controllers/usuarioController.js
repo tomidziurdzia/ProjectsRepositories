@@ -50,4 +50,25 @@ const autenticar = async (req, res) => {
   }
 };
 
-export { registrar, autenticar };
+// Confirmando y validando las cuentas
+const confirmar = async (req, res) => {
+  const { token } = req.params;
+
+  const usuarioConfirmar = await Usuario.findOne({ token });
+
+  if (!usuarioConfirmar) {
+    const error = new Error("El token es invalido");
+    return res.status(403).json({ msg: error.message });
+  }
+
+  try {
+    usuarioConfirmar.confirmado = true;
+    usuarioConfirmar.token = "";
+    await usuarioConfirmar.save();
+    res.json({ msj: "Usuario confirmado correctamente" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { registrar, autenticar, confirmar };
