@@ -1,11 +1,27 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Alerta from "../components/Alerta";
 
 const Registrar = () => {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
+  const [alerta, setAlerta] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if ([nombre, email, password, repetirPassword].includes("")) {
+      setAlerta({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
+    }
+  };
+
+  const { msg } = alerta;
 
   return (
     <>
@@ -13,7 +29,10 @@ const Registrar = () => {
         Crea tu cuenta y adminisstra tus{" "}
         <span className="text-slate-700">proyectos</span>
       </h1>
-      <form className="my-10 bg-white shadow rounded-lg p-10">
+      <form
+        className="my-10 bg-white shadow rounded-lg p-10"
+        onSubmit={handleSubmit}
+      >
         <div className="my-5">
           <label
             htmlFor="nombre"
@@ -84,6 +103,7 @@ const Registrar = () => {
           className="bg-sky-600 w-full py-3 text-white font-bold rounded hover:cursor-pointer hover:bg-sky-700 transition-colors"
         />
       </form>
+      {msg && <Alerta alerta={alerta} />}
       <nav className="lg:flex lg:justify-between">
         <Link className="block text-center my-5 text-slate-500 text-sm" to="/">
           ¿Ya tienes una cuenta? Inicia Sesión
