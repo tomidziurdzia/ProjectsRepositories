@@ -27,7 +27,7 @@ const Login = () => {
             htmlFor="password"
             className="text-gray-600 block text-xl font-bold"
           >
-            Password
+            Contraseña
           </label>
           <input
             id="password"

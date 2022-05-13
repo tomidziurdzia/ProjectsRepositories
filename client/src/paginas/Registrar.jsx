@@ -4,7 +4,7 @@ const Registrar = () => {
   return (
     <>
       <h1 className="text-sky-600 font-black text-center text-4xl md:text-6xl">
-        Crea tu cuenta y adminisstra tu{" "}
+        Crea tu cuenta y adminisstra tus{" "}
         <span className="text-slate-700">proyectos</span>
       </h1>
       <form className="my-10 bg-white shadow rounded-lg p-10">
@@ -41,13 +41,13 @@ const Registrar = () => {
             htmlFor="password"
             className="text-gray-600 block text-xl font-bold"
           >
-            Password
+            Contraseña
           </label>
           <input
             id="password"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
             type="password"
-            placeholder="Password de registro"
+            placeholder="Contraseña de registro"
           />
         </div>
         <div className="my-5">
@@ -55,7 +55,7 @@ const Registrar = () => {
             htmlFor="repetir-password"
             className="text-gray-600 block text-xl font-bold"
           >
-            Repetir Password
+            Repetir Contraseña
           </label>
           <input
             id="repetir-password"
@@ -76,7 +76,7 @@ const Registrar = () => {
         </Link>
         <Link
           className="block text-center my-5 text-slate-500 text-sm"
-          to="olvide-password"
+          to="/olvide-password"
         >
           Olvide mi password
         </Link>
