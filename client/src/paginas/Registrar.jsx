@@ -19,6 +19,27 @@ const Registrar = () => {
       });
       return;
     }
+
+    if (password !== repetirPassword) {
+      setAlerta({
+        msg: "Las contraseñas no coinciden",
+        error: true,
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      setAlerta({
+        msg: "La contraseña es muy corta",
+        error: true,
+      });
+      return;
+    }
+
+    setAlerta({});
+
+    // Crear el usuario en al API
+    console.log("creando");
   };
 
   const { msg } = alerta;
