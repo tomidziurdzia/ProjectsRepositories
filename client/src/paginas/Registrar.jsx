@@ -41,6 +41,7 @@ const Registrar = () => {
 
     // Crear el usuario en al API
     try {
+      // TODO: Mover hacia un cliente Axios
       const { data } = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/usuarios`,
         {
