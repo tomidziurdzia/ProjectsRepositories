@@ -1,4 +1,6 @@
 import { useState } from "react";
+import useProyectos from "../hooks/useProyectos";
+import Alerta from "./Alerta";
 
 const FormularioProyecto = () => {
   const [nombre, setNombre] = useState("");
@@ -6,8 +8,30 @@ const FormularioProyecto = () => {
   const [fechaEntrega, setFechaEntrega] = useState("");
   const [cliente, setCliente] = useState("");
 
+  const { mostrarAlerta, alerta, submitProyecto } = useProyectos();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if ([nombre, descripcion, fechaEntrega, cliente].includes("")) {
+      mostrarAlerta({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
+    }
+
+    // Pasar los datos hacia el provider
+    submitProyecto({ nombre, descripcion, fechaEntrega, cliente });
+  };
+
+  const { msg } = alerta;
   return (
-    <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow">
+    <form
+      className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow"
+      onSubmit={handleSubmit}
+    >
+      {msg && <Alerta alerta={alerta} />}
       <div className="mb-5">
         <label className="text-gray-700 font-bold text-sm" htmlFor="nombre">
           Nombre Proyecto
