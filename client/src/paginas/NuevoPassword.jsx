@@ -4,6 +4,10 @@ import axios from "axios";
 import Alerta from "../components/Alerta";
 
 const NuevoPassword = () => {
+  const [password, setPassword] = useState("");
+  const [repetirPassword, setRepetirPassword] = useState("");
+  const [passwordModificado, setPasswordModificado] = useState(false);
+
   const [tokenValido, setTokenValido] = useState(false);
   const [alerta, setAlerta] = useState({});
   const params = useParams();
@@ -28,6 +32,38 @@ const NuevoPassword = () => {
     comprobarToken();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== repetirPassword) {
+      setAlerta({
+        msg: "Las contraseñas no coinciden",
+        error: true,
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      setAlerta({
+        msg: "La contraseña es muy corta",
+        error: true,
+      });
+      return;
+    }
+    try {
+      // TODO: Mover hacia un cliente Axios
+      const url = `http://localhost:4000/api/usuarios/olvide-password/${token}`;
+      const { data } = await axios.post(url, { password });
+      setAlerta({ msg: data.msg, error: false });
+      setPassword("");
+      setRepetirPassword("");
+
+      setPasswordModificado(true);
+    } catch (error) {
+      setAlerta({ msg: error.response.data.msg, error: true });
+    }
+  };
+
   const { msg } = alerta;
   return (
     <>
@@ -37,7 +73,10 @@ const NuevoPassword = () => {
       </h1>
       {msg && <Alerta alerta={alerta} />}
       {tokenValido && (
-        <form className="my-10 bg-white shadow rounded-lg p-10">
+        <form
+          className="my-10 bg-white shadow rounded-lg p-10"
+          onSubmit={handleSubmit}
+        >
           <div className="my-5">
             <label
               htmlFor="password"
@@ -50,6 +89,8 @@ const NuevoPassword = () => {
               className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
               type="password"
               placeholder="Nueva contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="my-5">
@@ -64,6 +105,8 @@ const NuevoPassword = () => {
               className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
               type="password"
               placeholder="Repetir contraseña"
+              value={repetirPassword}
+              onChange={(e) => setRepetirPassword(e.target.value)}
             />
           </div>
           <input
@@ -73,17 +116,11 @@ const NuevoPassword = () => {
           />
         </form>
       )}
-      <nav className="lg:flex lg:justify-between">
+      {passwordModificado && (
         <Link className="block text-center my-5 text-slate-500 text-sm" to="/">
-          ¿Ya tienes una cuenta? Inicia Sesión
+          Inicia Sesión
         </Link>
-        <Link
-          className="block text-center my-5 text-slate-500 text-sm"
-          to="/olvide-password"
-        >
-          Olvide mi password
-        </Link>
-      </nav>
+      )}
     </>
   );
 };
