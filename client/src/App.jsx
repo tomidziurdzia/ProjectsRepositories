@@ -6,7 +6,7 @@ import OlvidePassword from "./paginas/OlvidePassword";
 import NuevoPassword from "./paginas/NuevoPassword";
 import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 
-import { AuthProvider } from "./context/AuthProvides";
+import { AuthProvider } from "./context/AuthProvider";
 
 const App = () => {
   return (
