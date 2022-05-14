@@ -3,9 +3,10 @@ import { useState, useEffect, createContext } from "react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [hola, setHola] = useState("Hola mundo");
+  const [auth, setAuth] = useState({});
+
   return (
-    <AuthContext.Provider value={{ hola }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ setAuth }}>{children}</AuthContext.Provider>
   );
 };
 
