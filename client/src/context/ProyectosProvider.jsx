@@ -53,7 +53,10 @@ const ProyectosProvider = ({ children }) => {
         },
       };
       const { data } = await clienteAxios.post("/proyectos", proyecto, config);
-      console.log(data);
+
+      //Esto sirve para cuando creo un proyecto se agregue a proyectos
+      setProyectos([...proyectos, data]);
+
       setAlerta({
         msg: "Proyecto creado correctamente",
         error: false,
