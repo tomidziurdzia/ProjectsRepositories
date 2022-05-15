@@ -5,13 +5,23 @@ import { useEffect } from "react";
 const Proyecto = () => {
   const params = useParams();
 
-  const { obtenerProyecto } = useProyectos();
+  const { obtenerProyecto, proyecto, cargando } = useProyectos();
 
   useEffect(() => {
     obtenerProyecto(params.id);
   }, []);
 
-  return <div>Proyecto</div>;
+  const { nombre } = proyecto;
+
+  console.log(proyecto);
+
+  return cargando ? (
+    "Cargando..."
+  ) : (
+    <div>
+      <h1 className="font-black text-4xl">{nombre}</h1>
+    </div>
+  );
 };
 
 export default Proyecto;
