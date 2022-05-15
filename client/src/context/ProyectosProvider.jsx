@@ -45,9 +45,9 @@ const ProyectosProvider = ({ children }) => {
 
   const submitProyecto = async (proyecto) => {
     if (proyecto.id) {
-      editarProyecto(proyecto);
+      await editarProyecto(proyecto);
     } else {
-      nuevoProyecto(proyecto);
+      await nuevoProyecto(proyecto);
     }
   };
 
@@ -70,8 +70,22 @@ const ProyectosProvider = ({ children }) => {
       );
 
       // Sincronizar el State
+      const proyectosActualizados = proyectos.map((proyectoState) =>
+        proyectoState._id === data._id ? data : proyectoState
+      );
+      setProyectos(proyectosActualizados);
 
       // Mostrar la Alerta
+      setAlerta({
+        msg: "Proyecto editado correctamente",
+        error: false,
+      });
+
+      setTimeout(() => {
+        setAlerta({});
+        // Redireccionar
+        navigate("/proyectos");
+      }, 1000);
 
       console.log(data);
     } catch (error) {
