@@ -22,7 +22,7 @@ const ModalFormularioTarea = () => {
 
   const params = useParams();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if ([nombre, descripcion, prioridad, fechaEntrega].includes("")) {
       mostrarAlerta({
@@ -31,13 +31,18 @@ const ModalFormularioTarea = () => {
       });
       return;
     }
-    submitTarea({
+    await submitTarea({
       nombre,
       descripcion,
       prioridad,
       fechaEntrega,
       proyecto: params.id,
     });
+
+    setNombre("");
+    setDescripcion("");
+    setFechaEntrega("");
+    setPrioridad("");
   };
 
   const { msg } = alerta;
@@ -108,7 +113,7 @@ const ModalFormularioTarea = () => {
                     as="h3"
                     className="text-lg leading-6 font-bold text-gray-900"
                   >
-                    <h1>Crear Tarea</h1>
+                    <p className="text-3xl">Crear Tarea</p>
                   </Dialog.Title>
 
                   {msg && <Alerta alerta={alerta} />}
