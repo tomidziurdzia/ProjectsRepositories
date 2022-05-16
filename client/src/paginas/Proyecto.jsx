@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import useProyectos from "../hooks/useProyectos";
 import { useEffect } from "react";
+import ModalFormularioTarea from "../components/ModalFormularioTarea";
 
 const Proyecto = () => {
   const params = useParams();
@@ -61,6 +62,7 @@ const Proyecto = () => {
         </svg>
         Nueva Tarea
       </button>
+      <ModalFormularioTarea />
     </>
   );
 };
