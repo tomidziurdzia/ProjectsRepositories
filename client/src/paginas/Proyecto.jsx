@@ -17,6 +17,8 @@ const Proyecto = () => {
 
   const { nombre } = proyecto;
 
+  console.log(proyecto);
+
   if (cargando) return "Cargando...";
 
   return (
