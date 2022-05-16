@@ -16,6 +16,7 @@ const ModalFormularioTarea = () => {
     tarea,
   } = useProyectos();
 
+  const [id, setId] = useState("");
   const [nombre, setNombre] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -24,7 +25,19 @@ const ModalFormularioTarea = () => {
   const params = useParams();
 
   useEffect(() => {
-    console.log(tarea);
+    if (tarea?._id) {
+      setId(tarea._id);
+      setNombre(tarea.nombre);
+      setDescripcion(tarea.descripcion);
+      setFechaEntrega(tarea.fechaEntrega?.split("T")[0]);
+      setPrioridad(tarea.prioridad);
+      return;
+    }
+    setId("");
+    setNombre("");
+    setDescripcion("");
+    setFechaEntrega("");
+    setPrioridad("");
   }, [tarea]);
 
   const handleSubmit = async (e) => {
@@ -118,7 +131,9 @@ const ModalFormularioTarea = () => {
                     as="h3"
                     className="text-lg leading-6 font-bold text-gray-900"
                   >
-                    <p className="text-3xl">Crear Tarea</p>
+                    <p className="text-3xl">
+                      {id ? "Editar Tarea" : "Crear Tarea"}
+                    </p>
                   </Dialog.Title>
 
                   {msg && <Alerta alerta={alerta} />}
@@ -192,7 +207,7 @@ const ModalFormularioTarea = () => {
                     <input
                       type="submit"
                       className="bg-sky-600 hover:bg-sky-700 w-full p-3 text-white font-bold cursor-pointer transition-colors rounded"
-                      value="Crear Tarea"
+                      value={id ? "Editar Tarea" : "Crear Tarea"}
                     />
                   </form>
                 </div>

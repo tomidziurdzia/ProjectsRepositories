@@ -12,8 +12,8 @@ const Tarea = ({ tarea }) => {
       <div>
         <p className="mb-1 text-xl">{nombre}</p>
         <p className="mb-1 text-lg text-gray-500">{descripcion}</p>
-        <p className="mb-1 text-xl">{formatearFecha(fechaEntrega)}</p>
-        <p className="mb-1 text-xl text-gray-600">Priodidad: {prioridad}</p>
+        <p className="mb-1 text-sm">{formatearFecha(fechaEntrega)}</p>
+        <p className="mb-1 text-sm text-gray-600">Priodidad: {prioridad}</p>
       </div>
       <div className="flex gap-2">
         <button
