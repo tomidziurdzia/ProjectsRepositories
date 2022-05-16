@@ -238,8 +238,11 @@ const ProyectosProvider = ({ children }) => {
         config
       );
 
-      // TODO: Actualizar el DOM
-
+      const proyectoActualizado = { ...proyecto };
+      proyectoActualizado.tareas = proyectoActualizado.tareas.map(
+        (tareaState) => (tareaState._id === data._id ? data : tareaState)
+      );
+      setProyecto(proyectoActualizado);
       setAlerta({});
       setModalFormularioTarea(false);
     } catch (error) {
