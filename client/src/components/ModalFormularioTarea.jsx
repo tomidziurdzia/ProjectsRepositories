@@ -13,6 +13,7 @@ const ModalFormularioTarea = () => {
     mostrarAlerta,
     alerta,
     submitTarea,
+    tarea,
   } = useProyectos();
 
   const [nombre, setNombre] = useState("");
@@ -21,6 +22,10 @@ const ModalFormularioTarea = () => {
   const [prioridad, setPrioridad] = useState("");
 
   const params = useParams();
+
+  useEffect(() => {
+    console.log(tarea);
+  }, [tarea]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
