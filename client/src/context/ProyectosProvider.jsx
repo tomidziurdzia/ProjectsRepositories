@@ -424,7 +424,16 @@ const ProyectosProvider = ({ children }) => {
         {},
         config
       );
-      console.log(data);
+
+      const proyectoActualizado = { ...proyecto };
+
+      proyectoActualizado.tareas = proyectoActualizado.tareas.map(
+        (tareaState) => (tareaState._id === data._id ? data : tareaState)
+      );
+
+      setProyecto(proyectoActualizado);
+      setTarea({});
+      setAlerta({});
     } catch (error) {
       console.log(error.response);
     }
