@@ -6,7 +6,8 @@ import useAdmin from "../hooks/useAdmin";
 const Tarea = ({ tarea }) => {
   const admin = useAdmin();
 
-  const { handleModalEditarTarea, handleModalEliminarTarea } = useProyectos();
+  const { handleModalEditarTarea, handleModalEliminarTarea, completarTarea } =
+    useProyectos();
 
   const { descripcion, nombre, prioridad, fechaEntrega, _id, estado } = tarea;
 
@@ -27,15 +28,15 @@ const Tarea = ({ tarea }) => {
             Editar
           </button>
         )}
-        {estado ? (
-          <button className="bg-sky-600 px-4 py-3 text-white font-bold text-sm rounded-lg">
-            Completa
-          </button>
-        ) : (
-          <button className="bg-gray-600 px-4 py-3 text-white font-bold text-sm rounded-lg">
-            Incompleta
-          </button>
-        )}
+
+        <button
+          onClick={() => completarTarea(_id)}
+          className={`${
+            estado ? "bg-sky-600" : "bg-gray-600"
+          } px-4 py-3 text-white font-bold text-sm rounded-lg`}
+        >
+          {estado ? "Completa" : "Incompleta"}
+        </button>
 
         {admin && (
           <button
