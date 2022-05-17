@@ -2,6 +2,7 @@ import FormularioColaborador from "../components/FormularioColaborador";
 import { useEffect } from "react";
 import useProyectos from "../hooks/useProyectos";
 import { useParams } from "react-router-dom";
+import Alerta from "../components/Alerta";
 
 const NuevoColaborador = () => {
   const {
@@ -10,12 +11,15 @@ const NuevoColaborador = () => {
     cargando,
     colaborador,
     agregarColaborador,
+    alerta,
   } = useProyectos();
   const params = useParams();
 
   useEffect(() => {
     obtenerProyecto(params.id);
   }, []);
+
+  if (!proyecto?._id) return <Alerta alerta={alerta} />;
 
   return (
     <>
@@ -40,9 +44,7 @@ const NuevoColaborador = () => {
                 <button
                   type="button"
                   className="bg-slate-500 px-5 py-2 rounded-lg text-white font-bold text-sm"
-                  onClick={() =>
-                    agregarColaborador({ email: colaborador.email })
-                  }
+                  onClick={() => agregarColaborador(colaborador.email)}
                 >
                   Agregar al Proyecto
                 </button>
