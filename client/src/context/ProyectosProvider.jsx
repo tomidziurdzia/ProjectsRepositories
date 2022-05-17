@@ -147,7 +147,11 @@ const ProyectosProvider = ({ children }) => {
       setProyecto(data);
       setAlerta({});
     } catch (error) {
+      navigate("/proyectos");
       setAlerta({ msg: error.response.data.msg, error: true });
+      setTimeout(() => {
+        setAlerta({});
+      }, 2000);
     }
     setCargando(false);
   };
