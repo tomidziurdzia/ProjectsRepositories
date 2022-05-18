@@ -12,7 +12,11 @@ const Proyectos = () => {
   useEffect(() => {
     socket = io(import.meta.env.VITE_BACKEND_URL);
     socket.emit("prueba", proyectos);
-  }, []);
+
+    socket.on("respuesta desde servidor", (persona) => {
+      console.log("desde el frontend", persona);
+    });
+  }); //Aca lo dejo sin el [] para que vaya escuchando cambios siempre
 
   const { msg } = alerta;
 
